@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chat Linux Agent</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">🖥️</span>
+    <div>
+      <div class="title">Chat Linux Agent</div>
+      <div class="subtitle">chat with an AI that has its own Linux server + browser</div>
+    </div>
+  </div>
+  <div class="controls">
+    <span id="providerBadge" class="badge" title="LLM provider">…</span>
+    <button id="browserToggle" class="btn" title="Show/hide the browser view panel">🌐 Browser view</button>
+    <button id="newChat" class="btn" title="Start a fresh session (fresh Linux sandbox)">＋ New chat</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="chat-col">
+    <div id="messages" class="messages"></div>
+    <div id="status" class="status" hidden></div>
+    <form id="composer" class="composer">
+      <textarea id="input" rows="2" placeholder="Ask me to do something on my Linux server… e.g. “set up a python web app and show it to me”"></textarea>
+      <button type="submit" class="btn primary" id="sendBtn">Send ⏎</button>
+    </form>
+    <div class="hint">Each chat gets its own isolated Linux sandbox (Debian, /workspace). It sleeps after ~20 min idle.</div>
+  </section>
+
+  <aside id="browserPanel" class="browser-col">
+    <div class="panel-head">
+      <span>🌐 Browser view</span>
+      <span id="shotMeta" class="shot-meta"></span>
+    </div>
+    <div class="panel-body">
+      <div id="shotEmpty" class="shot-empty">
+        <p>No screenshots yet.</p>
+        <p class="dim">Ask the agent to open a page, e.g.<br/>“take a screenshot of example.com”.</p>
+      </div>
+      <a id="shotLink" href="#" target="_blank" rel="noopener" hidden>
+        <img id="shotImg" alt="Browser screenshot" />
+      </a>
+      <div id="shotUrl" class="shot-url" hidden></div>
+    </div>
+  </aside>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

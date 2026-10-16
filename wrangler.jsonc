@@ -1,0 +1,36 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "chat-linux-agent",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-10-16",
+	"compatibility_flags": ["nodejs_compat"],
+
+	// Static chat UI
+	"assets": { "directory": "./public" },
+
+	// One Linux container per chat session, owned by the AgentSandbox Durable Object
+	"containers": [
+		{
+			"class_name": "AgentSandbox",
+			"scheduling_policy": "durable_object",
+			"images": {
+				"agent": { "dockerfile": "./Dockerfile" }
+			}
+		}
+	],
+	"durable_objects": {
+		"bindings": [{ "class_name": "AgentSandbox", "name": "AGENT_SANDBOX" }]
+	},
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["AgentSandbox"] }],
+
+	// Cloud browser (screenshots the user can watch)
+	"browser": { "binding": "BROWSER" },
+	// Built-in LLM (used unless ANTHROPIC_API_KEY is set)
+	"ai": { "binding": "AI" },
+
+	"vars": {
+		"AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+		"ANTHROPIC_MODEL": "claude-sonnet-4-5-20250929",
+		"MAX_TOOL_STEPS": "10"
+	}
+}

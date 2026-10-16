@@ -1,0 +1,23 @@
+{
+  "name": "chat-linux-agent",
+  "version": "1.0.0",
+  "description": "Chat with an AI agent that runs a real Linux sandbox and a visible cloud browser — deployed on Cloudflare.",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cloudflare/puppeteer": "^1.4.0",
+    "@cloudflare/sandbox": "^1.0.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261016.1",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.151.0"
+  }
+}
